@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow & Grace | Salon, Shop & Academy</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #d4a373; /* Gold/Tan */
+            --secondary-color: #faedcd; /* Cream */
+            --text-dark: #333;
+            --text-light: #fff;
+            --accent: #b07d62;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: #fcfcfc; color: var(--text-dark); }
+
+        /* Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); letter-spacing: 2px; }
+        .nav-links button {
+            background: none;
+            border: none;
+            margin-left: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+        .nav-links button:hover, .nav-links button.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        /* Page Content Logic */
+        .page-section { display: none; padding: 2rem; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* PAGE 1: SHOWCASE (Portfolio) */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background-color: var(--secondary-color);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { width: 100%; height: 300px; object-fit: cover; transition: 0.3s; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* PAGE 2: COSMETICS SHOP */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .product-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eee; /* Placeholder color */
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+        }
+        .price { color: var(--accent); font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
+        .btn-buy {
+            background-color: var(--text-dark);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-buy:hover { background-color: var(--accent); }
+
+        /* PAGE 3: ACADEMY (Batches) */
+        .batch-list { display: flex; flex-direction: column; gap: 20px; }
+        .batch-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 2rem;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .batch-info h3 { margin-bottom: 5px; }
+        .batch-date { color: #777; font-size: 0.9rem; }
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .open { background-color: #d4edda; color: #155724; }
+        .full { background-color: #f8d7da; color: #721c24; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .batch-card { flex-direction: column; text-align: center; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">GLOW & GRACE</div>
+            <div class="nav-links">
+                <button onclick="showPage('home')" id="btn-home" class="active">Showcase</button>
+                <button onclick="showPage('shop')" id="btn-shop">Shop Cosmetics</button>
+                <button onclick="showPage('classes')" id="btn-classes">Academy</button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="page-section active">
+        <div class="hero">
+            <h1>Artistry in Every Brush Stroke</h1>
+            <p>Expert Bridal Makeup, Hair Styling, and Skin Treatments</p>
+        </div>
+        
+        <h2>Our Latest Work</h2>
+        <br>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1487412947132-26c2449ffdd1?w=500&auto=format&fit=crop&q=60" alt="Bridal Makeup">
+                <div class="gallery-caption">Bridal Makeup</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500&auto=format&fit=crop&q=60" alt="Hair Styling">
+                <div class="gallery-caption">Creative Hair Styling</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&auto=format&fit=crop&q=60" alt="Nail Art">
+                <div class="gallery-caption">Nail Artistry</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="page-section">
+        <div class="hero" style="background-color: #f8f8f8;">
+            <h1>Signature Collection</h1>
+            <p>Premium cosmetics formulated by us, for you.</p>
+        </div>
+
+        <div class="shop-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403348?w=300" alt="Lipstick" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <h3>Velvet Matte Lipstick</h3>
+                <p class="price">$24.00</p>
+                <button class="btn-buy" onclick="alert('Added to cart!')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                     <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300" alt="Serum" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <h3>Gold Glow Serum</h3>
+                <p class="price">$45.00</p>
+                <button class="btn-buy" onclick="alert('Added to cart!')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                     <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300" alt="Palette" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <h3>Nude Eye Palette</h3>
+                <p class="price">$32.00</p>
+                <button class="btn-buy" onclick="alert('Added to cart!')">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="classes" class="page-section">
+        <div class="hero" style="background-color: #fff0f0;">
+            <h1>Learn from the Masters</h1>
+            <p>Professional certification courses and weekend workshops.</p>
+        </div>
+
+        <h2>Upcoming Batches</h2>
+        <br>
+        <div class="batch-list">
+            <div class="batch-card">
+                <div class="batch-info">
+                    <h3>Master Certification in Makeup Artistry</h3>
+                    <p class="batch-date">Starts: August 15th | Duration: 4 Weeks</p>
+                    <p>Learn advanced contouring, bridal looks, and color theory.</p>
+                </div>
+                <div style="text-align: right;">
+                    <span class="status open">Registration Open</span>
+                    <br><br>
+                    <button class="btn-buy" style="width: auto;">Enroll Now</button>
+                </div>
+            </div>
+
+            <div class="batch-card">
+                <div class="batch-info">
+                    <h3>Self-Grooming Weekend Workshop</h3>
+                    <p class="batch-date">Date: July 20th | Duration: 2 Days</p>
+                    <p>Perfect for beginners wanting to learn personal makeup skills.</p>
+                </div>
+                <div style="text-align: right;">
+                    <span class="status full">Batch Full</span>
+                    <br><br>
+                    <button class="btn-buy" style="width: auto; background-color: #ccc; cursor: not-allowed;">Waitlist</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Remove active class from buttons
+            const buttons = document.querySelectorAll('.nav-links button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Set active button
+            document.getElementById('btn-' + pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
